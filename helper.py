@@ -31,8 +31,13 @@ class Node(object):
     championId = None
     item_event = []
 
-    def __init__(self, id):
+
+    def __init__(self, id,item_event = None):
         self.p_id = id
+        if item_event is None:
+            self.item_event = []
+        else:
+            self.item_event = item_event
 
     def getId(self):
         return self.p_id
@@ -49,17 +54,21 @@ class Node(object):
     def addChampId(self, id):
         self.championId = id
 
-    def add_item(self,node,id):
-        if id == self.p_id:
-            self.item_event.append(node)
+    def add_item(self,node):
+        #if id == self.p_id:
+        self.item_event.append(node)
 
+
+
+    def getlist(self):
+        return self.item_event
     #def accept_item(self,item_id):
 
 
 
 
     def __str__(self):
-        myreturn = str(self.p_id) + ", " + str(self.lane) + ", " + str(self.team) + ", " + str(self.championId)
+        myreturn = str(self.p_id) + ", " + str(self.lane) + ", " + str(self.team) + ", " + str(self.championId) + ", " #+ str(self.item_event)
         #myreturn = ''
         for item in self.item_event:
            myreturn += str(item.getName())

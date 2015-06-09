@@ -24,25 +24,22 @@ for participant in Data["participants"]:
     game_participants[participant["participantId"]].addChampId(participant["championId"])
 
 
-for participant in game_participants.items():
-    for frame in range(1, Data["matchDuration"]/60):
-        for event in Data["timeline"]["frames"][frame]["events"]:
-            if "participantId" in event and \
-                            event["eventType"] != "SKILL_LEVEL_UP" and \
-                            event["eventType"] != "ITEM_UNDO" and \
-                            event["participantId"] == participant[1].getId():
-                #print event["participantId"]
+#for pt in game_participants.items():
+#    print pt
 
+for frame in range(1,Data["matchDuration"]/60):
+    for event in Data["timeline"]["frames"][frame]["events"]:
+        if "participantId" in event and event["participantId"] != 0 :
+            if event["eventType"] != "SKILL_LEVEL_UP" and event["eventType"] != "ITEM_UNDO":
                 item_node = helper.Item_at_time_Node(event["itemId"],event["eventType"])
-                #if event["participantId"] == game_participants.keys():
-                print str(event["participantId"]) + str(participant[0])
-                if event["participantId"] == participant[0]:
-                    game_participants[event["participantId"]].add_item(item_node,participant[0])
-                #print str(event["participantId"]) + " " + item_node.getName()
+
+                game_participants[event["participantId"]].add_item(item_node)
+
+
 
 
 
 #print item_helper.get_item_name(1001)
 for pt in game_participants.items():
-    print pt
+    print pt[1]
 #print game_participants[9]
