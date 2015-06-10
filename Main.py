@@ -26,8 +26,9 @@ for participant in Data["participants"]:
     game_participants[participant["participantId"]].addChampId(participant["championId"])
     game_participants[participant["participantId"]].addRole(participant["timeline"]["role"])
 
-#for pt in game_participants.items():
-#    print pt
+print "Players in this Game: "
+for pt in summonerName.items():
+    print str(pt[0])
 
 
 
@@ -104,8 +105,8 @@ for pt in game_participants.items():
         enemylane = pt[1].getRole()
     else:
         enemylane = pt[1].getLane()
-    if pt[1].getTeam() != userteam and enemylane == userlane:
-        print(str(pt[1].getChampId()))
+    #if pt[1].getTeam() != userteam and enemylane == userlane:
+        #print(str(pt[1].getChampId()))
 
 
 #print game_participants[9]
