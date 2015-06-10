@@ -1,0 +1,107 @@
+<!--
+Name: Khanh Le
+Date: 2/18/2015
+
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HW4</title><meta charset="utf-8">
+  <style>
+  body,div { background-color: #eee; font-family: sans; padding: 1em; }
+  </style>
+</head>
+<body>
+<center>
+	<p> Please enter your summoner name:</p>
+  <form action="#">
+    <input type="text" id="from" /> 
+	
+	
+  </form>
+  <div>
+  <button id="submit">Submit</button>
+  </div>
+  
+	<div>
+	  
+	  <div id="info"></div>
+	  <div id="sub"></div>
+	  <div id="dice"></div>
+	  <div id="dice2"></div>
+	  <div id = "pic"> </div>
+	</div>
+</center>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+  </script>
+  <script>
+  
+	$("#submit").click(function(){
+	inp = $("#from").val();
+	
+	url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/" + inp + "?api_key=5b911082-f0a4-44b9-b27c-8effa2ce1ac9";
+	
+	$.get(url, function(data){
+		//alert("Data: " + data.matches[0].matchId);
+		sid = data[inp]["id"];
+		
+		
+		$("#info").append("SummonerID: ");
+		$("#info").append(sid);
+		$("#info").append(" 	Summonerlevel: ");
+		$("#info").append(data[inp]["summonerLevel"]);
+		//$("#to").val(sid);
+		url2 = "https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/" + sid + "?api_key=5b911082-f0a4-44b9-b27c-8effa2ce1ac9";
+		$.get(url2, function(data2){
+			i = 0;
+			$("#sub").append('List of match history');
+			while (data2.matches[i])
+			{
+			//$("#dice").append("aa");
+			//$("#dice").append(' ');
+			//champid = data.matches[i].participants[0].teamId;
+			matchid = data2["matches"][i]["matchId"];
+			champid = data2["matches"][i]["participants"][0]["championId"];
+			console.log(champid);
+			//Data["matches"][0]["participants"][0]["teamId"]
+			
+			$("#dice").append("<a href='#' id ='newid' onclick='myJsFunc();'>" + matchid + "</a>");
+			$("#dice").append(' ');
+			
+			
+			url3 = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/" + champid + "?champData=image&api_key=5b911082-f0a4-44b9-b27c-8effa2ce1ac9";
+			//alert("Data: " + data.matches[i].matchId);
+			$.get(url3, function(data3){
+				champName = data3["name"]
+				$("#dice2").append(champName);
+				$("#dice2").append(' ');
+			});
+			
+			
+			
+			
+			i++;
+			}
+		});
+		
+		
+		
+		
+		});
+	});
+	
+	
+	function myJsFunc() {
+		$("#pic").append('<img src="item.jpg"  height="300" width="900">');
+	}
+	
+
+ 
+	
+	
+  </script>
+</body>
+</html>
